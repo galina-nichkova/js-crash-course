@@ -43,7 +43,7 @@ Student = class{
         emphasis)
       
         console.log(duration + ' minute sequence for ' +
-        this.level + ' level with emphasis on ' + emphasis + 
+        this.level + ' level with emphasis on ' + emphasis
         + ' created.')
     }
 }
