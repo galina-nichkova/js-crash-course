@@ -1,63 +1,28 @@
-printAsanaNameEnglish = asana => console.log(asana.nameEnglish)
-
-Sequence = class{
-    constructor(level, duration, emphasis){
-        this.level = level
-        this.duration = duration
-        this.emphasis = emphasis
-        this.asanas = []
-    }
-
-    addAsana(asana){
-        this.asanas.push(asana)
-    }    
-
-    printAsanas(){
-        this.asanas.forEach(printAsanaNameEnglish)
-    }
-}
-
-Asana = class{
-    constructor(nameEnglish, nameSanskrit, duration, emphases,
-    variations){
-        this.nameEnglish = nameEnglish
-        this.nameSanskrit = nameSanskrit
-        this.duration = duration
-        this.emphases = emphases
-        this.variations = variations
-    console.log('Asana ' + nameEnglish + ' is created')
-    }
-
-}
-
-Student = class{
-    constructor(name, level){
-        this.name = name
-        this.level = level
-        this.requestedSequence = []
-    console.log('Hi, I am created, my name is ' + name + 
-        ' and I practice ' + level + ' yoga.')
-    }
-    
-    request(duration, emphasis){        
-        var newSequence = new Sequence(this.level, duration, 
-        emphasis)
-        this.requestedSequence.push(newSequence)
-      
-        console.log(duration + ' minute sequence for ' +
-        this.level + ' level with emphasis on ' + emphasis
-        + ' created.')
-    }
-}
-
-
+const Student = require('./student.js')
+const Asana = require('./asana.js')
+const Database = require('./database.js')
+const sqlite3 = require('sqlite3')
 
 galina = new Student('Galina', 'intermediate')
-downwardFacingDog = new Asana ('Downward Facing Dog', 
-'Adho Mukha Svanasana', 3, 'Forward Bend', ['easy', 'difficult'])
-kingPigeon = new Asana ('King Pigeon', 
-'Kapotasana', 5, 'Back Bend', ['easy', 'intermediate', 'difficult'])
-galina.request(45, 'back bending')
-galina.requestedSequence[0].addAsana(downwardFacingDog)
-galina.requestedSequence[0].addAsana(kingPigeon)
-galina.requestedSequence[0].printAsanas()
+galina.request(45, 'forward bend')
+
+//this part till row 27 is WIP. It should become part of the request method of student or
+db = new sqlite3.Database('./db/asana-db.db')
+
+sql = 'SELECT name_english eng, name_sanskrit sans, emphases emp from ASANAS where emphases = '
+ + "'" + galina.requestedSequence[0].emphasis + "'";
+ 
+db.all(sql, [], (err, rows) => {
+  if (err) {
+    throw err;
+  }
+  rows.forEach((row) => {
+    row.eng = new Asana (row.eng, row.sans, 'dummy', row.emp, [])
+    galina.requestedSequence[0].addAsana(row.eng)
+  });
+  galina.requestedSequence[0].printAsanas()  
+});
+ 
+db.close();
+
+Database.save('galina.json', galina)
