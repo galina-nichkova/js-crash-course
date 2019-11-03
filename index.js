@@ -1,28 +1,36 @@
-const Student = require('./student.js')
-const Asana = require('./asana.js')
-const Database = require('./database.js')
-const sqlite3 = require('sqlite3')
+const Student = require('./models/student')
+const Sequence = require('./models/sequence')
+const Asana = require('./models/asana')
 
-galina = new Student('Galina', 'intermediate')
-galina.request(45, 'forward bend')
+const StudentService = require('./services/student-service')
+const SequenceService = require('./services/sequence-service')
+const AsanaService = require('./services/asana-service')
+// const sqlite3 = require('sqlite3')
 
-//this part till row 27 is WIP. It should become part of the request method of student or
-db = new sqlite3.Database('./db/asana-db.db')
+async function main() {
+  const bigToePose = new Asana ('Big Toe Pose','Padanghustasana',2,'forward bend', ['easy', 'difficult'])
+  const chairPose = new Asana ('Chair Pose','Utkatasana',3,'hips', ['intermediate'])
+  const downwardFacingDog = new Asana ('Downward Facing Dog','Adho Mukha Svanasana',3,'forward bend', ['easy', 'intermediate', 'difficult'])
 
-sql = 'SELECT name_english eng, name_sanskrit sans, emphases emp from ASANAS where emphases = '
- + "'" + galina.requestedSequence[0].emphasis + "'";
- 
-db.all(sql, [], (err, rows) => {
-  if (err) {
-    throw err;
-  }
-  rows.forEach((row) => {
-    row.eng = new Asana (row.eng, row.sans, 'dummy', row.emp, [])
-    galina.requestedSequence[0].addAsana(row.eng)
-  });
-  galina.requestedSequence[0].printAsanas()  
-});
- 
-db.close();
+  const galina = new Student ('Galina', 'intermediate')
 
-Database.save('galina.json', galina)
+  galina.request(45, 'forward bend')
+  galina.requestedSequence[0].addAsana(bigToePose)
+  galina.requestedSequence[0].addAsana(downwardFacingDog)
+
+  await AsanaService.add(bigToePose)
+  await AsanaService.add(chairPose)
+  await AsanaService.add(downwardFacingDog)
+
+  await StudentService.add(galina)
+
+  const savedAsanas = await AsanaService.findAll()
+  console.log(savedAsanas)
+
+  await AsanaService.del(1)
+
+  const SavedAsanasNew = await AsanaService.findAll()
+  console.log(SavedAsanasNew)
+}
+
+main()

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/galina-nichkova/js-crash-course#readme",
   "dependencies": {
+    "flatted": "^2.0.1",
     "fs": "0.0.1-security",
     "sqlite3": "^4.1.0"
   }
