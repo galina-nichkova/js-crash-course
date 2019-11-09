@@ -1,0 +1,24 @@
+{
+  "name": "js-crash-course",
+  "version": "1.0.0",
+  "description": "learning project about structuring yoga practice according to a student's needs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/galina-nichkova/js-crash-course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/galina-nichkova/js-crash-course/issues"
+  },
+  "homepage": "https://github.com/galina-nichkova/js-crash-course#readme",
+  "dependencies": {
+    "flatted": "^2.0.1",
+    "fs": "0.0.1-security",
+    "sqlite3": "^4.1.0"
+  }
+}

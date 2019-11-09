@@ -1,0 +1,4 @@
+3 ways to declare a variable:
+- let (can be reassigned)
+- const (cannot be reassigned)
+- var (?)
