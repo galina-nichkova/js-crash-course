@@ -12,3 +12,9 @@ i would like to develop a program that would help put together an individual yog
 - student can request multiple sequences
 - sequence has a certain level, duration, emphasis, and consists of multiple asanas
 - asana has a name in English and Sanskrit, duration, one or more emphases, and multiple variations depending on level. not every asana can be followed by any other asana, sometimes particular order has to be maintained
+
+## my current progress
+at the moment all the basic functionality like adding, deleting, finding items in the 
+database work. 
+my goal for the next week is to continue working on the sequence-service. right now it can only create a new sequence and a reference to a student who requested it. 
+further on, i would like it to fill the newly created sequence with asanas based on the user input and on the possible combination of asanas.
