@@ -1,36 +1,66 @@
-const Student = require('./models/student')
-const Sequence = require('./models/sequence')
-const Asana = require('./models/asana')
+const express = require('express')
+const bodyParser = require('body-parser')
 
-const StudentService = require('./services/student-service')
-const SequenceService = require('./services/sequence-service')
 const AsanaService = require('./services/asana-service')
-// const sqlite3 = require('sqlite3')
+const StudentService = require('./services/student-service')
 
-async function main() {
-  const bigToePose = new Asana ('Big Toe Pose','Padanghustasana',2,'forward bend', ['easy', 'difficult'])
-  const chairPose = new Asana ('Chair Pose','Utkatasana',3,'hips', ['intermediate'])
-  const downwardFacingDog = new Asana ('Downward Facing Dog','Adho Mukha Svanasana',3,'forward bend', ['easy', 'intermediate', 'difficult'])
+const app = express()
 
-  const galina = new Student ('Galina', 'intermediate')
+app.set('view engine', 'pug')
+app.use(bodyParser.json())
 
-  galina.request(45, 'forward bend')
-  galina.requestedSequence[0].addAsana(bigToePose)
-  galina.requestedSequence[0].addAsana(downwardFacingDog)
+app.get('/', (req, res) => {
+  res.render('index')
+})
 
-  await AsanaService.add(bigToePose)
-  await AsanaService.add(chairPose)
-  await AsanaService.add(downwardFacingDog)
+app.get('/asana/all', async (req, res) => {
+  const asanas = await AsanaService.findAll()
+  res.render('asana', { asanas })
+})
 
-  await StudentService.add(galina)
+app.get('/asana/:id', async (req, res) => {
+  const asana = await AsanaService.find(req.params.id)
+  res.send(asana)
+})
 
-  const savedAsanas = await AsanaService.findAll()
-  console.log(savedAsanas)
+app.post('/asana', async (req, res) => {
+  const asana = await AsanaService.add(req.body)
+  res.send(asana)
+})
 
-  await AsanaService.del(1)
+app.delete('/asana/:id', async (req, res) => {
+  const asana = await AsanaService.del(req.params.id)
+  res.send(asana)
+})
 
-  const SavedAsanasNew = await AsanaService.findAll()
-  console.log(SavedAsanasNew)
-}
+app.get('/student/all', async (req, res) => {
+  const students = await StudentService.findAll()
+  res.render('student', { students })
+})
 
-main()
+app.get('/student/:id', async (req, res) => {
+  const student = await StudentService.find(req.params.id)
+  res.send(student)
+})
+
+app.post('/student', async (req, res) => {
+  const student = await StudentService.add(req.body)
+  res.send(student)
+})
+
+app.delete('/student/:id', async (req, res) => {
+  const student = await StudentService.del(req.params.id)
+  res.send(student)
+})
+
+app.get('/student/:id/request', async (req, res) => {
+  const student = await StudentService.find(req.params.id)
+  await StudentService.requestSeq(student, 30, 'back bend')
+  console.log(student)
+  console.log(res.status)
+  res.send('ok')
+})
+
+app.listen(4000, () => {
+  console.log('Server listening')
+})

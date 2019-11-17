@@ -10,16 +10,6 @@ module.exports = class Student{
     console.log('Hi, I am created, my name is ' + name + 
         ' and I practice ' + level + ' yoga.')
     }
-    
-    request(duration, emphasis){        
-        var newSequence = new Sequence(this.level, duration, 
-        emphasis)
-        this.requestedSequence.push(newSequence)
-      
-        console.log(duration + ' minute sequence for ' +
-        this.level + ' level with emphasis on ' + emphasis
-        + ' created.')
-    }
 
     static create ({name, level, requestedSequence, id}){
         return new Student (name, level, requestedSequence, id)

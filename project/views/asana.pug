@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    h1 Currently, we have #{asanas.length} asanas in our database.
+    each asana in asanas
+      p #{asana.nameEnglish}
