@@ -16,5 +16,5 @@ i would like to develop a program that would help put together an individual yog
 ## my current progress
 at the moment all the basic functionality like adding, deleting, finding items in the 
 database work. 
-my goal for the next week is to continue working on the sequence-service. right now it can only create a new sequence and a reference to a student who requested it. 
+my goal for the next week is to continue working on the [sequence-service](https://github.com/galina-nichkova/js-crash-course/blob/lesson5/services/sequence-service.js#L7). right now it can only create a new sequence and a reference to a student who requested it. 
 further on, i would like it to fill the newly created sequence with asanas based on the user input and on the possible combination of asanas.
