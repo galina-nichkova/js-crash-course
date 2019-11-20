@@ -2,9 +2,7 @@ const BaseService = require('./base-service')
 const AsanaModel = require('../models/asana')
 
 class AsanaService extends BaseService {
-    constructor() {
-        super(AsanaModel, `${__dirname}/../asana-database.json`)
+    model = AsanaModel
     }
-}
 
 module.exports = new AsanaService()

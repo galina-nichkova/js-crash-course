@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    h1 Currently, we have #{sequences.length} sequences in our database.
+    each sequence in sequences
+      p #{sequence._id}
+      p #{sequence.level}
