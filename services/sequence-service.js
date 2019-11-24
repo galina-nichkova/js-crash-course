@@ -14,5 +14,4 @@ class SequenceService extends BaseService {
     }
 }
 
-
 module.exports = new SequenceService()
