@@ -8,8 +8,14 @@ const AsanaService = require('../services/asana-service')
     res.render('asana', { asanas })
   })
   
+  router.get('/all/json', async (req, res) => {
+    const asanas = await AsanaService.findAll()
+    res.send(asanas)
+  })
+
   router.get('/:id', async (req, res) => {
     const asana = await AsanaService.find(req.params.id)
+    if (!asana) res.status(404)
     res.send(asana)
   })
   

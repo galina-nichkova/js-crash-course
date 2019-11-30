@@ -4,7 +4,8 @@
   "description": "learning project about structuring yoga practice according to a student's needs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava --verbose --watch",
+    "test-coverage": "nyc ava --verbose"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,11 @@
     "mongoose-autopopulate": "^0.9.1",
     "pug": "^2.0.4",
     "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "ava": "^2.4.0",
+    "nodemon": "^2.0.0",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
   }
 }
