@@ -16,8 +16,7 @@ i would like to develop a program that would help put together an individual yog
 ## my current progress
 at the moment all the basic functionality like adding, deleting, finding items in the 
 database work. 
-my goal for the next week is to continue working on the [sequence-service](https://github.com/galina-nichkova/js-crash-course/blob/lesson5/services/sequence-service.js#L7). right now it can only create a new sequence and a reference to a student who requested it. 
-further on, i would like it to fill the newly created sequence with asanas based on the user input and on the possible combination of asanas.
+i am currently working on the main-service that should communicate with other services for simple actions like adding or updating objects in the data base, but also have it's own logic for filling a sequence with asanas
 
 ## some test commands for reviewers
 add student: axios.post('/student', {name: 'Karina', level: 3, requestedSequence: []}).then(console.log('ok')) \
