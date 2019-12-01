@@ -12,6 +12,11 @@ class SequenceService extends BaseService {
         await student.requestedSequence.push(newSequence)
         await student.save()
     }
+
+    async addAsanaToSequence(asana, sequence) {
+        await sequence.asanas.push(asana)
+        await sequence.save()
+    }
 }
 
 module.exports = new SequenceService()
