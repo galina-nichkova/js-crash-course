@@ -3,6 +3,7 @@ import request from 'supertest'
 import app from '../app'
 
 const SequenceService = require('../services/sequence-service')
+const AsanaService = require('../services/asana-service')
 
 test('Create new empty sequence', async t => {
 t.plan(5)
@@ -48,18 +49,19 @@ test('Add asana to sequence', async t => {
      .post('/asana')
      .send(asanaToCreate)).body
  
-    // t.is(createdAsana.status, 200)
+     const newAsana = await AsanaService.find(`${createdAsana._id}`)
  
      const createdSequence = (await request(app)
      .post('/sequence')
      .send(sequenceToCreate)).body
  
-     //t.is(createdSequence.status, 200)
+     const newSequence = await SequenceService.find(`${createdSequence._id}`)
  
-     await SequenceService.addAsanaToSequence(createdAsana, createdSequence)
+     await SequenceService.addAsanaToSequence(newAsana, newSequence)
  
-     const fetchSeq = await request(app).get(`/sequence/${createdSequence._id}`)
+     const fetchSeq = await request(app).get(`/sequence/${newSequence._id}`)
      t.is(fetchSeq.status, 200)
-     t.is(fetchSeq.asanas[0], createdAsana)
+     
+     t.deepEqual(fetchSeq.body.asanas[0], createdAsana)
  })
  

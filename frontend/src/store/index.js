@@ -11,8 +11,10 @@ export default new Vuex.Store({
     userDetails: {
       name: '',
       level: '',
-      password: ''
-    }
+      password: '',
+      id: ''
+    },
+    seqAsanas: {}
   },
   mutations: {
     SET_COUNTER(state, newCount) {
@@ -21,8 +23,11 @@ export default new Vuex.Store({
     SET_ASANAS(state, data) {
       state.asanas = data
     },
-    SAVE_NEW_USER(state, data){
-      state.user = data
+    SAVE_NEW_USER(state, newUser){
+      state.userDetails = newUser
+    },
+    SAVE_NEW_SEQUENCE(state, newSeq){
+      state.seqAsanas = newSeq
     }
   },
   actions: {
@@ -34,20 +39,23 @@ export default new Vuex.Store({
       const result = await axios.get('http://localhost:3000/asana/all/json')
       commit('SET_ASANAS', result.data)
     },
-    async postUser({ commit }) {
-    const result = await axios.post('http://localhost:3000/student', {
-         name: this.state.userDetails.name, level: this.state.userDetails.level, 
-         password: this.state.userDetails.password
+    async postUser({ commit }, payload) {
+         const res = await axios.post('http://localhost:3000/student', {
+         name: payload.name, level: payload.level, 
+         password: payload.password
        })
-       commit('SAVE_NEW_USER', result.res)
-     }
-  },
-  modules: {
-  },
-  getters: {
-    getUserDetails: state => {
-        return state.userDetails.name, state.userDetails.level,
-        state.userDetails.password
+       const newUser = {name: payload.name, level: payload.level, 
+        password: payload.password, id: res.data._id}
+       commit('SAVE_NEW_USER', newUser)
+     },
+    async requestSequence({commit, state}, payload) {
+      const res = await axios.post('http://localhost:3000/main', {
+        student: state.userDetails.id, sequence: {emphasis: payload.emphasis, 
+        duration: payload.duration, level: state.userDetails.level, asanas: []}})
+        console.log(res) 
+      const newSeq = res.data.sequence.asanas
+      console.log(newSeq)     
+      commit('SAVE_NEW_SEQUENCE', newSeq)
+      }
     }
-}
-})
+  })
