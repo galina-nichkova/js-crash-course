@@ -1,0 +1,39 @@
+{
+  "name": "js-crash-course",
+  "version": "1.0.0",
+  "description": "learning project about structuring yoga practice according to a student's needs",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --verbose --watch",
+    "test-coverage": "nyc ava --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/galina-nichkova/js-crash-course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/galina-nichkova/js-crash-course/issues"
+  },
+  "homepage": "https://github.com/galina-nichkova/js-crash-course#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "flatted": "^2.0.1",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.7.11",
+    "mongoose-autopopulate": "^0.9.1",
+    "multer": "^1.4.2",
+    "pug": "^2.0.4",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "ava": "^2.4.0",
+    "nodemon": "^2.0.0",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
+  }
+}
