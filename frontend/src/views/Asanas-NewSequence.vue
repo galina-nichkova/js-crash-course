@@ -9,13 +9,7 @@ export default {
   },
   computed: {
     ...mapState(['seqAsanas'])
-  }/* ,
-  methods: {
-    ...mapActions(['fetchAsanas'])
-  },
-  created() {
-    this.fetchAsanas()
-  } */
+  }
 }
 </script>
 
