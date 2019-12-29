@@ -9,6 +9,12 @@ class StudentService extends BaseService {
         await student.requestedSequence.push(sequence)
         await student.save()
      }
+    
+    async updateStudentLevelbyStudentId(level, studentId) {
+        const student = await this.find(studentId)
+        student.level = level
+        await student.save()
+    }
 
     }
 

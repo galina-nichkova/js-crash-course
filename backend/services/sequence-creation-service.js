@@ -2,7 +2,7 @@ const SequenceService = require('./sequence-service')
 const StudentService = require('./student-service')
 const AsanaService = require('./asana-service')
 
-class MainService {
+class SequenceCreationService {
 
     async appendAsanas(duration, sequence) {
         var seqDuration
@@ -35,4 +35,4 @@ class MainService {
     }
 }
 
-module.exports = new MainService()
+module.exports = new SequenceCreationService()

@@ -27,10 +27,12 @@ main
     p Currently active user
     div 
       span(style='font-weight:bold') {{ userDetails.name }}
-    //div 
-    //  span(style='font-weight:bold') {{ userDetails.id }}
+    div 
+      span(style='font-weight:bold') {{ payload }}
     p Emphasis
-    input(type="text" v-model="payload.emphasis" placeholder="edit me")
+    select(name="dropDown", v-model="payload.emphasis", id="")
+      each t in ['chest open', 'hip open']
+        option=t
     p Duration
     input(type="text" v-model="payload.duration" placeholder="edit me")
     p

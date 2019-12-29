@@ -16,7 +16,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["postUser"])
+    ...mapActions(["signInUser"])
   }
 };
 </script>
@@ -24,14 +24,23 @@ export default {
 <template lang="pug">
 main
   section
-    h2 Register here
-    p User name
-    input(type="text" v-model="payload.name" placeholder="edit me")
-    p Password
-    input(type="password" v-model="payload.password" placeholder="edit me")
-    p
-    button.post-user-button(@click="postUser(payload)") Register
-    //div {{ payload }}
+    form(@action="signInUser()")
+      div
+        label User name
+        input(type="text" name="username")
+      div
+        label Password
+        input(type="password" name="password")
+      div
+        input(type="submit" name="Log in")
+    //- h2 Sign In here
+    //- p User name
+    //- input(type="text" v-model="payload.name" placeholder="edit me")
+    //- p Password
+    //- input(type="password" v-model="payload.password" placeholder="edit me")
+    //- p
+    //- button.post-user-button(@click="signInUser(payload)") Sign In
+    //- div {{ payload }}
 </template>
 
 <style scoped>

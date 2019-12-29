@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/asanas">Asanas</router-link> |
       <router-link to="/register">Register</router-link> |
+      <router-link to="/signin">Sign In</router-link> |
       <router-link to="/request">Request</router-link> |
       <router-link to="/seqasanas">Your personal sequence</router-link>
     </div>

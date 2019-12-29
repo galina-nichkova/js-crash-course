@@ -2,15 +2,14 @@ import test from 'ava'
 import request from 'supertest'
 import app from '../app'
 
-const MainService = require('../services/main-service')
+const SequenceCreationService = require('../services/sequence-creation-service')
 const SequenceService = require('../services/sequence-service')
 
 test('Create new empty sequence and update student', async t => {
 //t.plan(5)
 
     const testStudent = {
-    name: 'Lena',
-    password: 'blabla',
+    username: 'Lena',
     level: 2,
     requestedSequence: []
     }
@@ -32,7 +31,7 @@ test('Create new empty sequence and update student', async t => {
     }
 
     const res = await request(app)
-    .post('/main')
+    .post('/sequence-creation')
     .send(testRequest)
 
     t.is(res.status, 200)
@@ -66,7 +65,7 @@ test('Append asana names to a sequence', async t => {
 
     const newSeq = await SequenceService.find(`${res.body._id}`)
 
-    const result = await MainService.appendAsanas(duration, newSeq)
+    const result = await SequenceCreationService.appendAsanas(duration, newSeq)
     t.is(res.status, 200)
     t.is(result.asanas.length > 0, true)
 })
