@@ -29,6 +29,8 @@ main
     input(type="text" v-model="payload.name" placeholder="edit me")
     p Password
     input(type="password" v-model="payload.password" placeholder="edit me")
+    p Level (1-beginner, 5-ultimate yoga master)
+    input(type="number" min="1" max="5" v-model="payload.level" placeholder="edit me")
     p
     button.post-user-button(@click="postUser(payload)") Register
     //div {{ payload }}

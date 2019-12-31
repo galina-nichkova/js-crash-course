@@ -10,7 +10,8 @@ export default new Vuex.Store({
     asanas: [],
     userDetails: {
       name: '',
-      id: ''
+      id: '',
+      level: ''
     },
     seqAsanas: {}
   },
@@ -42,10 +43,16 @@ export default new Vuex.Store({
           {username: payload.name, password: payload.password}
       )
 
+      const updatedUser = await axios.post(`${process.env.VUE_APP_API_URL}/student/updateLevel`,
+          {level: payload.level, studentId: res.data._id}
+          )
+
       const newUser = {
-        name: res.data.username,
-        id: res.data._id
+        name: updatedUser.data.username,
+        id: updatedUser.data._id,
+        level: updatedUser.data.level
       }
+
       commit('SAVE_NEW_USER', newUser)
     },
     async requestSequence({ commit, state }, payload) {

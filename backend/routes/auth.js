@@ -8,7 +8,6 @@ router.get('/login', (req, res, next) =>{
 })
 
 router.post('/register', (req, res, next) => {
-    console.log(req.body)
     Student.register({username: req.body.username}, req.body.password, (err, account) => {
         res.send(account)
     })

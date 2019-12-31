@@ -27,7 +27,7 @@ class SequenceCreationService {
         const updatedSeq = await this.appendAsanas(req.sequence.duration, newSeq)
 
 //update student (if it exists)
-        await StudentService.addSequenceToStudentByStudentId (updatedSeq, req.student)      
+        await StudentService.addSequenceToStudentByStudentId (updatedSeq, req.studentId)      
 
 //create and update student if it doesn't exist
 //...
