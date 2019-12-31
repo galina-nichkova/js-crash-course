@@ -108,3 +108,32 @@ t.plan(4)
     t.true(Array.isArray(fetchAllJson.body))
     t.true(fetchAllJson.body.length > 0)
 })
+
+test('Find asanas by emphasis', async t => {
+    t.plan(2)
+        const asanaToCreate = {
+        nameEnglish: 'Test',
+        nameSanskrit: 'test',
+        duration: 2,
+        emphasis: 'test emphasis',
+        restriction: 'placeholder',
+        levels: [1, 2],
+        canBeFollowedBy: 'placeholder',
+        pic: 'placeholder'
+        }
+
+    const asanaCreated = (await request(app)
+    .post('/asana')
+    .send(asanaToCreate)).body
+
+    const fetchedAsanas = (await request(app)
+    .get(`/asana/findByEmphasis/${asanaCreated.emphasis}`)).body
+    console.log(fetchedAsanas)
+    // const asanaFetchedJson = fetchedAsana.body
+
+    t.is(fetchedAsanas.length, 1)
+    t.is(fetchedAsanas[0].emphasis, 'test emphasis')
+    // t.deepEqual(asanaFetchedJson, asanaCreated)
+
+    })
+    

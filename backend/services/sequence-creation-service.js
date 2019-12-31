@@ -6,7 +6,7 @@ class SequenceCreationService {
 
     async appendAsanas(duration, sequence) {
         var seqDuration
-        const allAsanas = await AsanaService.findAll()
+        const allAsanas = await AsanaService.findAsanasByEmphasis(sequence.emphasis)
 
         seqDuration = 0
         var i = 0

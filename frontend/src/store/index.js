@@ -57,7 +57,7 @@ export default new Vuex.Store({
     },
     async requestSequence({ commit, state }, payload) {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/sequence-creation`, {
-        student: state.userDetails.id, sequence: {
+        studentId: state.userDetails.id, sequence: {
           emphasis: payload.emphasis,
           duration: payload.duration, level: state.userDetails.level, asanas: []
         }

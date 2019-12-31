@@ -55,7 +55,7 @@ test('Append asana names to a sequence', async t => {
     const testSequence = {
         level: 3,
         duration: 30,
-        emphasis: 'back bend',
+        emphasis: 'hip open',
         asanas: []
         }
 
@@ -68,4 +68,7 @@ test('Append asana names to a sequence', async t => {
     const result = await SequenceCreationService.appendAsanas(duration, newSeq)
     t.is(res.status, 200)
     t.is(result.asanas.length > 0, true)
+    t.is(result.asanas[0].emphasis, testSequence.emphasis)
+    t.is(result.asanas[1].emphasis, testSequence.emphasis)
+    t.is(result.asanas[2].emphasis, testSequence.emphasis)
 })

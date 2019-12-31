@@ -18,6 +18,12 @@ const AsanaService = require('../services/asana-service')
     if (!asana) res.status(404)
     res.send(asana)
   })
+
+  router.get('/findByEmphasis/:emphasis', async (req, res) => {
+    const asanas = await AsanaService.findAsanasByEmphasis(req.params.emphasis)
+    if (!asanas) res.status(404)
+    res.send(asanas)
+  })
   
   router.post('/', async (req, res) => {
     const asana = await AsanaService.add(req.body)
