@@ -13,7 +13,7 @@ I would like to develop a program that would help put together an individual yog
 - sequence has a certain level, duration, emphasis, and consists of multiple asanas
 - asana has a name in English and Sanskrit, duration, one or more emphases, and multiple variations depending on level. Not every asana can be followed by any other asana, sometimes particular order has to be maintained.
 
-## my current progress
+## My current progress
 Backend: I am working further on the main service (now called sequence-creation-service). It is responsible for the creation of an individual yoga sequence on user's request. At the moment, it take into account requested duration and emphasis. Also, I've recently added sign up and sign in functionality using passport local strategy.
 
 Frontend: Not the main priority at the moment, have added sign up interface but not the sign in yet.
