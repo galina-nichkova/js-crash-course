@@ -31,4 +31,10 @@ const SequenceService = require('../services/sequence-service')
     res.send('ok')
   })
 
+  router.post('/updateLevel', async (req, res) => {
+    const updatedStudent = await StudentService
+    .updateStudentLevelbyStudentId(req.body.level, req.body.studentId)
+    res.send(updatedStudent)
+  })
+
 module.exports = router

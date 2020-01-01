@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const MainService = require('../services/main-service')
+const SequenceCreationService = require('../services/sequence-creation-service')
   
   router.post('/', async (req, res) => {
-    const request = await MainService.requestSequence(req.body)
+    const request = await SequenceCreationService.requestSequence(req.body)
     res.send(request)
   })
 

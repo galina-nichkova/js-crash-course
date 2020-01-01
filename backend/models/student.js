@@ -1,12 +1,7 @@
 const mongoose = require('mongoose')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const StudentSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 2
-    },
-    password: String,
     level: Number,
     requestedSequence: [{
         type: mongoose.SchemaTypes.ObjectId,
@@ -15,9 +10,10 @@ const StudentSchema = new mongoose.Schema({
             maxDepth: 1
         }
     }]
-})
+}, { strict: false })
 
 StudentSchema.plugin(require('mongoose-autopopulate'))
+StudentSchema.plugin(passportLocalMongoose)
 
 const StudentModel = mongoose.model('Student', StudentSchema)
 module.exports = StudentModel

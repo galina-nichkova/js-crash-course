@@ -2,11 +2,11 @@ const SequenceService = require('./sequence-service')
 const StudentService = require('./student-service')
 const AsanaService = require('./asana-service')
 
-class MainService {
+class SequenceCreationService {
 
     async appendAsanas(duration, sequence) {
         var seqDuration
-        const allAsanas = await AsanaService.findAll()
+        const allAsanas = await AsanaService.findAsanasByEmphasis(sequence.emphasis)
 
         seqDuration = 0
         var i = 0
@@ -27,7 +27,7 @@ class MainService {
         const updatedSeq = await this.appendAsanas(req.sequence.duration, newSeq)
 
 //update student (if it exists)
-        await StudentService.addSequenceToStudentByStudentId (updatedSeq, req.student)      
+        await StudentService.addSequenceToStudentByStudentId (updatedSeq, req.studentId)      
 
 //create and update student if it doesn't exist
 //...
@@ -35,4 +35,4 @@ class MainService {
     }
 }
 
-module.exports = new MainService()
+module.exports = new SequenceCreationService()

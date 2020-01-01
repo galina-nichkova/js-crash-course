@@ -8,8 +8,7 @@ const StudentService = require('../services/student-service')
 test('Student can request a sequence', async t => {
 t.plan(3)
     const testStudent = {
-        name: 'Alina',
-        password: 'fffff',
+        username: 'Alina',
         level: 2,
         requestedSequence: []
     }
@@ -35,8 +34,7 @@ t.plan(3)
 
 test('Add new sequence to student', async t =>{
     const testStudent = {
-        name: 'Karina',
-        password: 'mmmmm',
+        username: 'Karina',
         level: 2,
         requestedSequence: []
     }
@@ -65,4 +63,21 @@ test('Add new sequence to student', async t =>{
     const fetchStudent = await request(app).get(`/student/${createdStudent._id}`)
     t.is(fetchStudent.status, 200)
     t.deepEqual(fetchStudent.body.requestedSequence[0], createdSequence)
+})
+
+test('Update student level by id', async t =>{
+    const testStudent = {
+        username: 'Galina',
+        requestedSequence: []
+    }
+
+    const createdStudent = (await request(app)
+    .post('/student')
+    .send(testStudent)).body
+
+    await StudentService.updateStudentLevelbyStudentId(2, `${createdStudent._id}`)
+
+    const fetchStudent = await request(app).get(`/student/${createdStudent._id}`)
+    t.is(fetchStudent.status, 200)
+    t.is(fetchStudent.body.level, 2)
 })

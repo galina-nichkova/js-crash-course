@@ -10,8 +10,8 @@ export default new Vuex.Store({
     asanas: [],
     userDetails: {
       name: '',
-      level: '',
-      id: ''
+      id: '',
+      level: ''
     },
     seqAsanas: {}
   },
@@ -39,25 +39,43 @@ export default new Vuex.Store({
       commit('SET_ASANAS', result.data)
     },
     async postUser({ commit }, payload) {
-      const res = await axios.post(`${process.env.VUE_APP_API_URL}/student`, {
-        name: payload.name, level: payload.level,
-        password: payload.password
-      })
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/auth/register`, 
+          {username: payload.name, password: payload.password}
+      )
+
+      const updatedUser = await axios.post(`${process.env.VUE_APP_API_URL}/student/updateLevel`,
+          {level: payload.level, studentId: res.data._id}
+          )
+
       const newUser = {
-        name: res.data.name, level: res.data.level,
-        id: res.data._id
+        name: updatedUser.data.username,
+        id: updatedUser.data._id,
+        level: updatedUser.data.level
       }
+
       commit('SAVE_NEW_USER', newUser)
     },
     async requestSequence({ commit, state }, payload) {
-      const res = await axios.post(`${process.env.VUE_APP_API_URL}/main`, {
-        student: state.userDetails.id, sequence: {
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/sequence-creation`, {
+        studentId: state.userDetails.id, sequence: {
           emphasis: payload.emphasis,
           duration: payload.duration, level: state.userDetails.level, asanas: []
         }
       })
       const newSeq = res.data.sequence.asanas
       commit('SAVE_NEW_SEQUENCE', newSeq)
-    }
+    },
+    async signInUser() {
+      console.log(req)
+      const res = await axios.post(`${process.env.VUE_APP_API_URL}/local`, passport.authenticate('local', {
+        successRedirect: '/asanas',
+        failureRedirect: '/register'
+    }))
+
+      // const newUser = {
+      //   name: res.data.name,
+      //   id: res.data._id
+      // }
+      // commit('SAVE_NEW_USER', newUser)
   }
-})
+}})
