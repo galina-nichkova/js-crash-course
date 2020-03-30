@@ -46,7 +46,9 @@ export default new Vuex.Store({
       const updatedUser = await axios.post(`${process.env.VUE_APP_API_URL}/student/updateLevel`,
           {level: payload.level, studentId: res.data._id}
           )
-
+      console.log(updatedUser.data.username)
+      console.log(updatedUser.data._id)
+      console.log(updatedUser.data.level)
       const newUser = {
         name: updatedUser.data.username,
         id: updatedUser.data._id,

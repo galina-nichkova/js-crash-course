@@ -33,7 +33,6 @@ main
     input(type="number" min="1" max="5" v-model="payload.level" placeholder="edit me")
     p
     button.post-user-button(@click="postUser(payload)") Register
-    //div {{ payload }}
 </template>
 
 <style scoped>

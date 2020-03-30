@@ -7,10 +7,9 @@ router.get('/login', (req, res, next) =>{
     res.render('login')
 })
 
-router.post('/register', (req, res, next) => {
-    Student.register({username: req.body.username}, req.body.password, (err, account) => {
-        res.send(account)
-    })
+router.post('/register', async (req, res) => {
+    const account = await Student.register({username: req.body.username}, req.body.password)
+    res.send(account)
 })
 
 router.post('/local', passport.authenticate('local', {

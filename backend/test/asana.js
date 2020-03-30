@@ -128,12 +128,9 @@ test('Find asanas by emphasis', async t => {
 
     const fetchedAsanas = (await request(app)
     .get(`/asana/findByEmphasis/${asanaCreated.emphasis}`)).body
-    console.log(fetchedAsanas)
-    // const asanaFetchedJson = fetchedAsana.body
 
     t.is(fetchedAsanas.length, 1)
     t.is(fetchedAsanas[0].emphasis, 'test emphasis')
-    // t.deepEqual(asanaFetchedJson, asanaCreated)
 
     })
     

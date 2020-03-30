@@ -26,3 +26,14 @@ delete student: axios.delete('/student/5dd1c572892cbd38b78d4699').then(console.l
 add asana: axios.post('/asana', {nameEnglish: 'Big Toe Pose', nameSanskrit: 'Padanghustasana', duration: 2, emphasis: 'forward bend', levels: [1, 2]}).then(console.log('ok'))
 
 request sequence: axios.get('/sequence/5dd1a51d5e360f28c3c5fab8/30/backBend').then(console.log('ok'))
+
+
+#useful commands
+
+mongodb --dbpath ~/data/db - start db
+cd backend ; nodemon index.js - start backend
+cd frontend ; npm run server - start frontend
+
+npm test - run all tests
+npx nyc npm test - run tests and display test coverage
+npx ava --match='Test Name' - run a specific test

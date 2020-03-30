@@ -68,6 +68,7 @@ test('Add new sequence to student', async t =>{
 test('Update student level by id', async t =>{
     const testStudent = {
         username: 'Galina',
+        password: 'test',
         requestedSequence: []
     }
 
@@ -75,9 +76,13 @@ test('Update student level by id', async t =>{
     .post('/student')
     .send(testStudent)).body
 
-    await StudentService.updateStudentLevelbyStudentId(2, `${createdStudent._id}`)
+    await request(app)
+    .post('/student/updateLevel')
+    .send({level:2, studentId:`${createdStudent._id}`})
 
     const fetchStudent = await request(app).get(`/student/${createdStudent._id}`)
     t.is(fetchStudent.status, 200)
     t.is(fetchStudent.body.level, 2)
+
+    await request(app).delete(`/student/${createdStudent._id}`)
 })

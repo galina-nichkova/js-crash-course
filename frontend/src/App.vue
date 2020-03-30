@@ -1,20 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
+<!--     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/asanas">Asanas</router-link> |
       <router-link to="/register">Register</router-link> |
       <router-link to="/signin">Sign In</router-link> |
       <router-link to="/request">Request</router-link> |
       <router-link to="/seqasanas">Your personal sequence</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Sarabun");
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Sarabun', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
