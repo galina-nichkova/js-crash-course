@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 
 const AsanaRouter = require('./routes/asana')
 const StudentRouter = require('./routes/student')
@@ -16,13 +18,15 @@ const ensureLogin = require('./middleware/ensure-login')
 const Student = require('./models/student')
 
 require('./mongo-connection')
+const mongoose = require('mongoose')
 
 const app = express()
 
 app.set('view engine', 'pug')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false}))
-app.use(session({ secret: 'sdkjhgfbdskjfhs', resave: true, saveUninitialized: true}))
+app.use(session({ secret: 'sdkjhgfbdskjfhs', resave: false, saveUninitialized: false, 
+store: new MongoStore({ mongooseConnection: mongoose.connection,  collection: 'sessions'})}))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -30,7 +34,11 @@ passport.serializeUser(Student.serializeUser())
 passport.deserializeUser(Student.deserializeUser())
 passport.use(Student.createStrategy())
 
-app.use(cors())
+app.use(cors({
+  origin:['http://localhost:8080'],
+  methods:['GET','POST'],
+  credentials: true
+}))
 
 app.use('/asana', AsanaRouter)
 app.use('/student', StudentRouter)

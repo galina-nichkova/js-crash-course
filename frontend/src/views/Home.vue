@@ -18,31 +18,75 @@ export default {
 </script>
 
 <template lang="pug">
-main
-  section
-    img(src='@/assets/home-page.jpg', alt="", width="700px", heigth="500px")
-  section
-    h2 Personalize your yoga practice
-    div Click "Register" to proceed
+div(class="bg-img")
+  div(class="overlay")
+  h2(class="h2") Personalize your yoga practice
+  div(class="router-link")
+    router-link(to="/signin") Login
+    router-link(to="/register")  Register  
 </template>
 
 <style scoped>
-section {
-  padding: 20px 0;
+.bg-img {
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-position: bottom;
+    background-attachment: fixed;
+    background-size: cover;
+    background-image: url('~@/assets/home-page.jpg')
 }
-.increment-button {
-  color: darkcyan;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background-color: white;
-  border: 1px solid darkcyan;
-  font-size: 14px;
-  font-weight: 600;
+
+.bg-img .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .5;
+    background: #ffffff;
+}
+
+h2 {
+    position: relative;
+    top: 400px;
+    text-align: center;
+    font-size: 50px;
+    color:#ffffff;
+}
+
+.router-link {
+  position: absolute;
+  font-family: "Sarabun";
+  color: #ffffff;
+  font-size: 30px;
+  right: 30px;
+  top: 20px;
+
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #83827a;
   cursor: pointer;
-  margin-bottom: 20px;
 }
+
+.router-link:visited {
+  color:#ffffff;
+  text-decoration: none;
+}
+
+/*
 .increment-button:hover {
   background-color: darkcyan;
   color: white;
-}
+} */
 </style>

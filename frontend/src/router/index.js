@@ -49,6 +49,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Asanas-NewSequence.vue')
+  },
+  {
+    path: '/welcome-registration',
+    name: 'welcome-registration',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Welcome-Registration.vue')
+  },
+  {
+    path: '/welcome-login',
+    name: 'welcome-login',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Welcome-Login.vue')
   }
 ]
 
