@@ -1,7 +1,7 @@
 <script>
-// @ is an alias to /src
 import { mapState, mapActions } from "vuex";
-
+    import axios from "axios"    
+    import router from "../router"    
 export default {
   computed: {
     ...mapState(["userDetails"])
@@ -9,34 +9,43 @@ export default {
   data() {
     return {
       payload: {
-        username: "",
-        password: ""
+        emphasis: "",
+        duration: ""
       }
     };
   },
   methods: {
-    ...mapActions(["signInUser"])
-  }
-};
+    ...mapActions(["getUserData", "requestSequence"])
+  },
+        mounted() {    
+            this.$store.dispatch("getUserData")}
+  }  ;
 </script>
 
 <template lang="pug">
 div(class="bg-img")
   div(class="overlay")
-    div(class="container")
-      form
+  h2(class="h2") It's nice to see you here again {{ userDetails.name }}!
+  p Browse through the sequences we've already created for you or request a new one!
+  div(class="container")
+    form
       div(class="row")
         div(class="col-25")
-          label User name
+          label Emphasis
         div(class="col-75")
-          input(type="text" v-model="payload.username" name="username" placeholder="Your user name ...")
-      div(class="row")
+          select(type="text", v-model="payload.emphasis" placeholder="Your sequence emphasis ...")
+            option hip open
+            option Back Bend
+            option Core and Shoulders
+            option Balance
+            option Twist
         div(class="col-25")
-          label Password
+          label Duration in minutes
         div(class="col-75")
-          input(type="password" v-model="payload.password" name="password" placeholder="Your password ...")
-      div(class="row")
-        input(type="submit" value="Login" @click="signInUser(payload)")
+          input(type="text" v-model="payload.duration" placeholder="Your sequence duration ...")
+      input(type="submit" value="Request" @click="requestSequence(payload)")
+  div {{ userDetails }}
+  div {{ payload }}
 </template>
 
 <style scoped>
@@ -64,6 +73,14 @@ div(class="bg-img")
     background: #ffffff;
 }
 
+h2 {
+    position: relative;
+    top: 400px;
+    text-align: center;
+    font-size: 50px;
+    color:#ffffff;
+}
+
  input[type=text], select, textarea {
   width: 100%;
   padding: 12px;
@@ -71,14 +88,6 @@ div(class="bg-img")
   border-radius: 4px;
   resize: vertical;
   font-family: "Sarabun";
-}
-
- input[type=password], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
 }
 
 label {

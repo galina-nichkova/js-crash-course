@@ -24,7 +24,6 @@ div(class="bg-img")
   div(class="router-link")
     router-link(to="/signin") Login
     router-link(to="/register")  Register  
-  //- p Register
 </template>
 
 <style scoped>
@@ -60,17 +59,10 @@ h2 {
     color:#ffffff;
 }
 
-/* section {
-  padding: 0 0;
-  height: 100%;
-}*/
-
 .router-link {
   position: absolute;
   font-family: "Sarabun";
   color: #ffffff;
-  /* background-color: #000000; */
-  /*border: 1px solid darkcyan; */
   font-size: 30px;
   right: 30px;
   top: 20px;
