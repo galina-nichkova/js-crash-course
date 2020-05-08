@@ -9,9 +9,6 @@ export default {
   ,
   getImgUrl() {
     return require(`../assets/${this.asana.nameSanskrit}.webp`);
-  // var images = require.context('@/assets/', false, /\.webp$/)
-  // console.log(images);
-  // return images('Tadasana.webp')
   }
   }
 }

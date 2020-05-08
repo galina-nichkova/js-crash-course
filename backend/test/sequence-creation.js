@@ -46,6 +46,8 @@ test('Create new empty sequence and update student', async t => {
     t.is(fetchUpdatedStudent.requestedSequence[0].duration, testSequence.duration)
     t.is(fetchUpdatedStudent.requestedSequence[0].emphasis, testSequence.emphasis)
     t.is(fetchUpdatedStudent.requestedSequence[0].level, testSequence.level)
+
+    await request(app).delete(`/student/${createdStudent._id}`)
 })
 
 test('Append asana names to a sequence', async t => {

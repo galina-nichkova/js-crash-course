@@ -1,15 +1,8 @@
-<template>
-  <div id="app">
-<!--     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/asanas">Asanas</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/signin">Sign In</router-link> |
-      <router-link to="/request">Request</router-link> |
-      <router-link to="/seqasanas">Your personal sequence</router-link>
-    </div> -->
-    <router-view/>
-  </div>
+<template lang="pug">
+div(class="bg-img")
+  div(class="overlay")
+  div(id="app")
+    router-view
 </template>
 
 <style>
@@ -34,5 +27,30 @@
 
 #nav a.router-link-exact-active {
   color: #D563E6;
+}
+
+.bg-img {
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-position: bottom;
+    background-attachment: fixed;
+    background-size: cover;
+    background-image: url('~@/assets/home-page.jpg')
+}
+
+.bg-img .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .5;
+    z-index: -1;
+    background: #ffffff;
 }
 </style>

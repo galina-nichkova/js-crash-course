@@ -1,7 +1,7 @@
 <script>
-import { mapState, mapActions } from "vuex";
-    import axios from "axios"    
-    import router from "../router"    
+import { mapState, mapActions } from "vuex"
+import axios from "axios"    
+import router from "../router"    
 export default {
   computed: {
     ...mapState(["userDetails"])
@@ -12,23 +12,26 @@ export default {
         emphasis: "",
         duration: ""
       }
-    };
+    }
   },
   methods: {
-    ...mapActions(["getUserData", "requestSequence"])
-  },
+    ...mapActions(["getUserData", "requestSequence", "logout", "fetchUserSequences"])
+  }
+  ,
         mounted() {    
             this.$store.dispatch("getUserData")}
-  }  ;
+  }
 </script>
 
 <template lang="pug">
-div(class="bg-img")
-  div(class="overlay")
+div
   h2(class="h2") It's nice to see you here again {{ userDetails.name }}!
-  p Browse through the sequences we've already created for you or request a new one!
+  div(class="logout-link")
+    button.logout-link(@click="logout()") Logout
+  button.logout-link(@click="fetchUserSequences()") Browse
+  p through the sequences we've already created for you or request a new one!
   div(class="container")
-    form
+    div
       div(class="row")
         div(class="col-25")
           label Emphasis
@@ -45,34 +48,9 @@ div(class="bg-img")
           input(type="text" v-model="payload.duration" placeholder="Your sequence duration ...")
       input(type="submit" value="Request" @click="requestSequence(payload)")
   div {{ userDetails }}
-  div {{ payload }}
 </template>
 
 <style scoped>
-.bg-img {
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    background-position: bottom;
-    background-attachment: fixed;
-    background-size: cover;
-    background-image: url('~@/assets/home-page.jpg')
-}
-
-.bg-img .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .5;
-    background: #ffffff;
-}
-
 h2 {
     position: relative;
     top: 400px;
@@ -147,5 +125,26 @@ input[type=submit]:hover {
     width: 100%;
     margin-top: 0;
   }
+}
+
+.logout-link {
+  position: absolute;
+  font-family: "Sarabun";
+  color: #ffffff;
+  font-size: 30px;
+  right: 30px;
+  top: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logout-link:hover {
+  color: #83827a;
+  cursor: pointer;
 }
 </style>

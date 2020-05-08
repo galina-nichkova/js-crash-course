@@ -6,17 +6,14 @@ const ensureLogin = require('../middleware/ensure-login')
 
 
 router.get('/login', ensureLogin, (req, res, next) =>{
-    //console.log("HOHOHOHOHOHOH")
-    //console.log(req)
     res.send({user: req.session.passport.user, id: req.user._id, level: req.user.level})
 })
 
 router.post('/register', async (req, res) => {
-    try {
     const account = await Student.register({username: req.body.username}, req.body.password)
-    res.send(account)
-    } catch(err) {res.send(err)}
-})
+          res.send(account)}
+      
+)
 
 router.post('/local', (req, res, next) => {
     //console.log("URRAAAAAAAAAAAAAAAAAAAAAA");
@@ -33,6 +30,11 @@ router.post('/local', (req, res, next) => {
         res.send("Logged in");
       });
     })(req, res, next);
+  });
+
+  router.get('/logout', async (req, res) => {
+    await req.logout();  
+    return res.send();
   });
 
 module.exports = router
