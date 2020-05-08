@@ -1,7 +1,7 @@
 <script>
-// @ is an alias to /src
 import { mapState, mapActions } from 'vuex'
-
+import router from "../router" 
+import axios from "axios"  
 export default {
   computed: {
      ...mapState(['userDetails'])
@@ -15,9 +15,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['requestSequence'])
+    ...mapActions(['requestSequence', "getUserData"])
 }
-}
+  ,
+        mounted() {    
+            this.$store.dispatch("getUserData")}
+  }
 </script>
 
 <template lang="pug">

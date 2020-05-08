@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const ensureLogin = require('../middleware/ensure-login')
 
 const SequenceService = require('../services/sequence-service')
 
@@ -12,6 +13,12 @@ const SequenceService = require('../services/sequence-service')
     const sequence = await SequenceService.find(req.params.id)
     if (!sequence) res.status(404)
     res.send(sequence)
+  })
+
+  router.get('/:id/asanas', ensureLogin, async (req, res) => {
+    const sequence = await SequenceService.find(req.params.id)
+    asanas = sequence.asanas
+    res.send(asanas)
   })
   
   router.post('/', async (req, res) => {

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const ensureLogin = require('../middleware/ensure-login')
 
 const StudentService = require('../services/student-service')
 const SequenceService = require('../services/sequence-service')
@@ -35,6 +36,12 @@ const SequenceService = require('../services/sequence-service')
     const updatedStudent = await StudentService
     .updateStudentLevelbyStudentId(req.body.level, req.body.studentId)
     res.send(updatedStudent)
+  })
+
+  router.get('/:id/sequences', ensureLogin, async (req, res) => {
+    const student = await StudentService.find(req.params.id)
+    sequences = student.requestedSequence
+    res.send(sequences)
   })
 
 module.exports = router

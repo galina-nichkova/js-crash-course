@@ -18,8 +18,7 @@ export default {
 </script>
 
 <template lang="pug">
-div(class="bg-img")
-  div(class="overlay")
+div
   h2(class="h2") Personalize your yoga practice
   div(class="router-link")
     router-link(to="/signin") Login
@@ -27,30 +26,6 @@ div(class="bg-img")
 </template>
 
 <style scoped>
-.bg-img {
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    background-position: bottom;
-    background-attachment: fixed;
-    background-size: cover;
-    background-image: url('~@/assets/home-page.jpg')
-}
-
-.bg-img .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .5;
-    background: #ffffff;
-}
-
 h2 {
     position: relative;
     top: 400px;
@@ -84,9 +59,4 @@ a:hover {
   text-decoration: none;
 }
 
-/*
-.increment-button:hover {
-  background-color: darkcyan;
-  color: white;
-} */
 </style>

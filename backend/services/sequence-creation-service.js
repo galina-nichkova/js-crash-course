@@ -1,6 +1,7 @@
 const SequenceService = require('./sequence-service')
 const StudentService = require('./student-service')
 const AsanaService = require('./asana-service')
+const AsanaModel = require('../models/asana')
 
 class SequenceCreationService {
 
@@ -8,13 +9,23 @@ class SequenceCreationService {
         var seqDuration
         const allAsanas = await AsanaService.findAsanasByEmphasis(sequence.emphasis)
 
+        const sunSalutationList = await AsanaService.findAsanaByEnglishName('Sun Salutation')
+        const sunSalutation = sunSalutationList[0]
+        const corpsePoseList = await AsanaService.findAsanaByEnglishName('Corpse Pose')
+        const corpsePose = corpsePoseList[0]
+
+        await SequenceService.addAsanaToSequence(sunSalutation, sequence)
+
         seqDuration = 0
         var i = 0
-        while (seqDuration < duration && i < allAsanas.length) {
+        while (seqDuration < duration-15 && i < allAsanas.length) {
                 seqDuration = seqDuration + allAsanas[i].duration
                 await SequenceService.addAsanaToSequence(allAsanas[i], sequence)
                 i++
         }
+
+        await SequenceService.addAsanaToSequence(corpsePose, sequence)
+
         return sequence
     }
 

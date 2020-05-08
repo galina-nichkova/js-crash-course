@@ -21,49 +21,24 @@ export default {
 </script>
 
 <template lang="pug">
-div(class="bg-img")
-  div(class="overlay")
-    div(class="container")
-      form
-      div(class="row")
-        div(class="col-25")
-          label User name
-        div(class="col-75")
-          input(type="text" v-model="payload.username" name="username" placeholder="Your user name ...")
-      div(class="row")
-        div(class="col-25")
-          label Password
-        div(class="col-75")
-          input(type="password" v-model="payload.password" name="password" placeholder="Your password ...")
-      div(class="row")
-        input(type="submit" value="Login" @click="signInUser(payload)")
+div
+  div(class="container")
+    form
+    div(class="row")
+      div(class="col-25")
+        label User name
+      div(class="col-75")
+        input(type="text" v-model="payload.username" name="username" placeholder="Your user name ...")
+    div(class="row")
+      div(class="col-25")
+        label Password
+      div(class="col-75")
+        input(type="password" v-model="payload.password" name="password" placeholder="Your password ...")
+    div(class="row")
+      input(type="submit" value="Login" @click="signInUser(payload)")
 </template>
 
 <style scoped>
-.bg-img {
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    background-position: bottom;
-    background-attachment: fixed;
-    background-size: cover;
-    background-image: url('~@/assets/home-page.jpg')
-}
-
-.bg-img .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .5;
-    background: #ffffff;
-}
-
  input[type=text], select, textarea {
   width: 100%;
   padding: 12px;

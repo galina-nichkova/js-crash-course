@@ -86,3 +86,40 @@ test('Update student level by id', async t =>{
 
     await request(app).delete(`/student/${createdStudent._id}`)
 })
+
+test('Return sequences of a student', async t =>{
+    const testStudent = {
+        username: 'GalinaTest',
+        password: 'test',
+        level: 3,
+        requestedSequence: []
+    }
+
+    const createdStudent = (await request(app)
+    .post('/student')
+    .send(testStudent)).body
+
+    const testSequence = {
+        level: testStudent.level,
+        duration: 30,
+        emphasis: 'back bend',
+        asanas: []
+        }
+
+    const testRequest = {
+        studentId: createdStudent._id,
+        sequence: testSequence
+        }
+    
+    await request(app)
+    .post('/sequence-creation')
+    .send(testRequest)
+
+    const fetchSequences = await request(app).get(`/student/${createdStudent._id}/sequences`)
+    t.is(fetchSequences.status, 200)
+    t.is(fetchSequences.body.length, 1)
+    t.is(fetchSequences.body[0].duration, 30)
+    t.is(fetchSequences.body[0].emphasis, "back bend")
+
+    await request(app).delete(`/student/${createdStudent._id}`)
+})

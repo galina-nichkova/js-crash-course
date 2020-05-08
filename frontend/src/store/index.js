@@ -16,6 +16,7 @@ export default new Vuex.Store({
       level: ''
     },
     seqAsanas: {},
+    userSequences: [],
     errMessage: ''
   },
   mutations: {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_ASANAS(state, data) {
       state.asanas = data
+    },
+    SET_USER_SEQUENCES(state, data) {
+      state.userSequences = data
     },
     SAVE_NEW_USER(state, newUser) {
       state.userDetails = newUser
@@ -42,7 +46,13 @@ export default new Vuex.Store({
     },
     async fetchAsanas({ commit }) {
       const result = await axios.get(`${process.env.VUE_APP_API_URL}/asana/all/json`)
+      console.log(result.data)
       commit('SET_ASANAS', result.data)
+    },
+    async fetchUserSequences({ commit, state }) {
+      const result = await axios.get(`${process.env.VUE_APP_API_URL}/student/${state.userDetails.id}/sequences`)
+      commit('SET_USER_SEQUENCES', result.data)
+      router.push('/user-sequence')
     },
     async postUser({ commit }, payload) {
       if (!payload.name || !payload.password || !payload.level) {
@@ -67,7 +77,7 @@ export default new Vuex.Store({
 
       commit('SAVE_NEW_USER', newUser)
       commit('UPDATE_ERR_MESSAGE', '')
-      router.push('/welcome-registration')}}
+      router.push('/signin')}}
     },
     async requestSequence({ commit, state }, payload) {
       const res = await axios.post(`${process.env.VUE_APP_API_URL}/sequence-creation`, {
@@ -77,7 +87,13 @@ export default new Vuex.Store({
         }
       })
       const newSeq = res.data.sequence.asanas
+      console.log(newSeq)
       commit('SAVE_NEW_SEQUENCE', newSeq)
+      router.push('/seqasanas')
+    },
+    async fetchAsanasOfSequence({ commit }, id) {
+      const res = await axios.get(`${process.env.VUE_APP_API_URL}/sequence/${id}/asanas`)
+      commit('SAVE_NEW_SEQUENCE', res.data)
       router.push('/seqasanas')
     },
     async signInUser({ commit }, payload) {
@@ -86,7 +102,7 @@ export default new Vuex.Store({
         password: payload.password
       }
     )
-      console.log(res)
+      console.log(res.data.name)
       router.push('/welcome-login')
       const newUser = {
         name: res.data.name,
@@ -105,6 +121,18 @@ export default new Vuex.Store({
         .catch((errors) => {    
             console.log(errors)    
             router.push("/")    
-        })    
-}    
+        })   
+    },
+    
+    async logout({ commit }) {
+      const res = await axios.get(`${process.env.VUE_APP_API_URL}/auth/logout`)
+      console.log(res)
+      router.push('/')
+      const newUser = {
+        name: '',
+        id: '',
+        level: ''
+      }
+      commit('SAVE_NEW_USER', newUser)
+    }
 }})

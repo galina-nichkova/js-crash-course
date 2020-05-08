@@ -7,5 +7,9 @@ class AsanaService extends BaseService {
     async findAsanasByEmphasis(emphasis) {
         return this.model.find({emphasis: emphasis})
     }
+
+    async findAsanaByEnglishName(name) {
+        return this.model.find({nameEnglish: name})
+    }
 }
 module.exports = new AsanaService()
